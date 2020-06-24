@@ -19,7 +19,7 @@ public class App {
 				GeccoEngine.create()
 				.pipelineFactory(springPipelineFactory)
 				.classpath("com.geccocrawler.gecco.spring")
-				.start("https://www.baidu.com")
+				.start("https://s.weibo.com/top/summary?cate=realtimehot")
 				.interval(3000)
 				.loop(true)
 				.start();
