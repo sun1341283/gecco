@@ -19,7 +19,7 @@ public class App {
 				GeccoEngine.create()
 				.pipelineFactory(springPipelineFactory)
 				.classpath("com.geccocrawler.gecco.spring")
-				.start("https://github.com/xtuhcy/gecco")
+				.start("https://www.baidu.com")
 				.interval(3000)
 				.loop(true)
 				.start();
