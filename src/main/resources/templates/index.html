@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-7">
+    <title>爬新闻咯</title>
+    <script type="text/javascript" th:inline="javascript">
+       var news = [[${news}]];
+       for (i = 1;i<news.length;i++){
+           console.log(news[i])
+       }
+    </script>
+</head>
+
+<body>
+
+
+<article th:each="article : ${news}">
+<!--    <section >-->
+<!--&lt;!&ndash;        <a th:text="${article[0]}" th:href="@{'/detail?content='+${article[1]}}"></a>&ndash;&gt;-->
+<!--        <a th:text="${article[0]}" href="javascript:post('detail',{id:1,name:'aaa'})"></a>-->
+<!--    </section>-->
+    <form action="/detail" method="post">
+        <a href="javascript:" th:text="${article[0]}" onclick="parentNode.submit();"></a>
+        <input th:type="hidden" name="title" th:value="${article[0]}" />
+        <input th:type="hidden" name="content" th:value="${article[1]}" />
+    </form>
+</article>
+
+
+</body>
+</html>

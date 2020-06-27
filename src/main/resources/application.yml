@@ -1,0 +1,12 @@
+spring:
+  redis:
+    host: 119.3.108.241
+    port: 20209
+    password: Sun091640.
+    lettuce:
+      pool:
+        min-idle: 1
+    timeout: 30s
+
+
+
