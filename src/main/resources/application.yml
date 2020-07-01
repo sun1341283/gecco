@@ -7,6 +7,6 @@ spring:
       pool:
         min-idle: 1
     timeout: 30s
-
-
+server:
+  port: 80
 

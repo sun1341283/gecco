@@ -196,12 +196,12 @@ public class Spider implements Runnable {
         Downloader currDownloader = null;
         BeforeDownload before = null;
         AfterDownload after = null;
-        int timeout = 1000;
+        int timeout = 20_000;
         if(context != null) {
             currDownloader = context.getDownloader();
             before = context.getBeforeDownload();
             after = context.getAfterDownload();
-            timeout = context.getTimeout();
+//            timeout = context.getTimeout();
         } else {
             currDownloader = engine.getSpiderBeanFactory().getDownloaderFactory().defaultDownloader();
         }

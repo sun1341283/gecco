@@ -1,4 +1,4 @@
-package com.geccocrawler.gecco.entity;
+package com.geccocrawler.gecco.entity.titles;
 
 import com.geccocrawler.gecco.annotation.Gecco;
 import com.geccocrawler.gecco.annotation.HtmlField;
@@ -7,14 +7,18 @@ import com.geccocrawler.gecco.spider.HtmlBean;
 import lombok.Getter;
 import lombok.Setter;
 
+import static com.geccocrawler.gecco.config.TargetSites.TX_WEIBO;
+
 /**
  * @Author: lolo
  * @Date: 2020/6/24 0024
  */
-@Gecco(matchUrl = "https://s.weibo.com/top/summary?cate=realtimehot", pipelines = "consolePipeline",downloader = "myhttpClientDownloader")
+@Gecco(matchUrl = "https://s.weibo.com/top/summary?cate=realtimehot", pipelines = "myConsolePipeline",downloader = "myhttpClientDownloader")
 @Getter
 @Setter
-public class WeiboRS implements HtmlBean {
+public class TxWeiBo implements HtmlBean {
+
+    public static String operator = TX_WEIBO;
 
     @Href(click = true)
     @HtmlField(cssPath = "#pl_top_realtimehot > table > tbody > tr:nth-child(1) > td.td-02 > a")

@@ -1,23 +1,25 @@
 package com.geccocrawler.gecco.config;
 
+import com.geccocrawler.gecco.myGecco.GeccoEngine;
 import com.geccocrawler.gecco.spring.SpringGeccoEngine;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 public class UrlConfig {
+
     @Bean
-    public SpringGeccoEngine initGecco() {
+    public SpringGeccoEngine bbczhongwen() {
         return new SpringGeccoEngine() {
             @Override
             public void init() {
-                com.geccocrawler.gecco.myGecco.GeccoEngine.create()
+                System.out.println("开始初始化客户端");
+                GeccoEngine.create()
                         .pipelineFactory(springPipelineFactory)
                         .classpath("com.geccocrawler.gecco.spring")
-                        .start("https://s.weibo.com/top/summary?cate=realtimehot")
-                        .interval(60_000)
-                        .loop(true)
-                        .start();
+                        .interval(5_000)
+                        .loop(true).start();
             }
         };
     }

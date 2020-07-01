@@ -1,4 +1,4 @@
-package com.geccocrawler.gecco.entity;
+package com.geccocrawler.gecco.entity.detail;
 
 import com.geccocrawler.gecco.annotation.Gecco;
 import com.geccocrawler.gecco.annotation.Html;
@@ -9,6 +9,8 @@ import com.geccocrawler.gecco.spider.HtmlBean;
 import lombok.Getter;
 import lombok.Setter;
 
+import static com.geccocrawler.gecco.config.TargetSites.TX_WEIBO;
+
 /**
  * @Author: lolo
  * @Date: 2020/6/24 0024
@@ -17,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WeiBoRSDetail implements HtmlBean , GetInfo {
-    private String operator = "tx_weibo";
+    private String operator = TX_WEIBO;
 
     @Text
     @HtmlField(cssPath = "#pl_topic_header > div.card-topic-a > div > div.title > h1 > a")

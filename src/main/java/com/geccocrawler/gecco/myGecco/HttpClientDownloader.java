@@ -147,23 +147,15 @@ public class HttpClientDownloader extends AbstractDownloader {
             reqObj.setHeader(entry.getKey(), entry.getValue());
         }
         //request config
+        HttpHost proxy = new HttpHost("119.3.108.241",20207);
         RequestConfig.Builder builder = RequestConfig.custom()
                 .setConnectionRequestTimeout(1000)//从连接池获取连接的超时时间
                 .setSocketTimeout(timeout)//获取内容的超时时间
                 .setConnectTimeout(timeout)//建立socket连接的超时时间
-                .setRedirectsEnabled(false);
+                .setRedirectsEnabled(false).setProxy(proxy);
         //proxy
-        HttpHost proxy = null;
-        Proxys proxys = ProxysContext.get();
-        boolean isProxy = ProxysContext.isEnableProxy();
-        if(proxys != null && isProxy) {
-            proxy = proxys.getProxy();
-            if(proxy != null) {
-                log.debug("proxy:" + proxy.getHostName()+":"+proxy.getPort());
-                builder.setProxy(proxy);
-                builder.setConnectTimeout(1000);//如果走代理，连接超时时间固定为1s
-            }
-        }
+
+
         reqObj.setConfig(builder.build());
         //request and response
         try {
@@ -200,18 +192,15 @@ public class HttpClientDownloader extends AbstractDownloader {
             } else {
                 //404，500等
                 if(proxy != null) {
-                    proxys.failure(proxy.getHostName(), proxy.getPort());
                 }
                 throw new DownloadServerException("" + status);
             }
             if(proxy != null) {
-                proxys.success(proxy.getHostName(), proxy.getPort());
             }
             return resp;
         } catch (IOException e) {
             //超时等
             if(proxy != null) {
-                proxys.failure(proxy.getHostName(), proxy.getPort());
             }
             throw new DownloadException(e);
         } finally {

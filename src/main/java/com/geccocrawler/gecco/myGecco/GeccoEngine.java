@@ -1,6 +1,7 @@
 package com.geccocrawler.gecco.myGecco;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import com.geccocrawler.gecco.scheduler.Scheduler;
 import com.geccocrawler.gecco.scheduler.StartScheduler;
 import com.google.common.io.Files;
 import com.google.common.io.Resources;
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * 爬虫引擎，每个爬虫引擎最好独立进程，在分布式爬虫场景下，可以单独分配一台爬虫服务器。引擎包括Scheduler、Downloader、Spider、 SpiderBeanFactory4个主要模块
@@ -257,14 +259,20 @@ public class GeccoEngine extends Thread {
 
     private GeccoEngine startsJson() {
         try {
-            URL url = Resources.getResource("starts.json");
-            File file = new File(url.getPath());
+//            URL url = Resources.getResource("/starts.json");
+//            File file = new File(url.getPath());
+            InputStream is = new ClassPathResource("starts.json").getInputStream();
+            byte[] buffer = new byte[is.available()];
+            is.read(buffer);
+            File file = new File("tmp.tmp");
+            Files.write(buffer,file);
             if (file.exists()) {
                 String json = Files.toString(file, Charset.forName("UTF-8"));
                 List<StartRequestList> list = JSON.parseArray(json, StartRequestList.class);
                 for (StartRequestList start : list) {
                     start(start.toRequest());
                 }
+                file.delete();
             }
         } catch (IllegalArgumentException ex) {
             log.info("starts.json not found");
